@@ -1,62 +1,12 @@
 /**
  * PS 26099: National Unified Material Master (NUMM)
- * Interactive Flyer Controller
+ * Interactive Controller
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM Elements
   const body = document.body;
-  const flyerPage = document.getElementById('flyerPage');
-  const printBtn = document.getElementById('printBtn');
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   const themeBtnText = document.getElementById('themeBtnText');
-  const zoomInBtn = document.getElementById('zoomInBtn');
-  const zoomOutBtn = document.getElementById('zoomOutBtn');
-  const zoomFitBtn = document.getElementById('zoomFitBtn');
-  const zoomLevelText = document.getElementById('zoomLevelText');
-  const viewport = document.getElementById('flyerViewport');
-
-  // Zoom State
-  let currentZoom = 1.0;
-  const ZOOM_STEP = 0.1;
-  const MIN_ZOOM = 0.5;
-  const MAX_ZOOM = 2.0;
-
-  function updateZoom(newZoom) {
-    currentZoom = Math.min(Math.max(newZoom, MIN_ZOOM), MAX_ZOOM);
-    flyerPage.style.transform = `scale(${currentZoom})`;
-    zoomLevelText.textContent = `${Math.round(currentZoom * 100)}%`;
-  }
-
-  function fitToScreen() {
-    if (!viewport || !flyerPage) return;
-    const availableWidth = viewport.clientWidth - 40;
-    const pagePixelWidth = flyerPage.offsetWidth;
-    if (pagePixelWidth > 0) {
-      const fitRatio = availableWidth / pagePixelWidth;
-      updateZoom(Math.min(fitRatio, 1.15));
-    }
-  }
-
-  // Event Listeners for Zoom
-  if (zoomInBtn) {
-    zoomInBtn.addEventListener('click', () => updateZoom(currentZoom + ZOOM_STEP));
-  }
-
-  if (zoomOutBtn) {
-    zoomOutBtn.addEventListener('click', () => updateZoom(currentZoom - ZOOM_STEP));
-  }
-
-  if (zoomFitBtn) {
-    zoomFitBtn.addEventListener('click', fitToScreen);
-  }
-
-  // Print Action
-  if (printBtn) {
-    printBtn.addEventListener('click', () => {
-      window.print();
-    });
-  }
 
   // Theme Switcher
   if (themeToggleBtn) {
@@ -64,53 +14,79 @@ document.addEventListener('DOMContentLoaded', () => {
       if (body.classList.contains('theme-dark')) {
         body.classList.remove('theme-dark');
         body.classList.add('theme-light');
-        themeBtnText.textContent = 'Dark View';
+        if (themeBtnText) themeBtnText.textContent = 'Dark';
       } else {
         body.classList.remove('theme-light');
         body.classList.add('theme-dark');
-        themeBtnText.textContent = 'Light View';
+        if (themeBtnText) themeBtnText.textContent = 'Light';
       }
     });
   }
 
   // Interactive HITL Review Card Actions (Simulation for Evaluators)
-  const btnApprove = document.querySelector('.btn-approve');
-  const btnReject = document.querySelector('.btn-reject');
-  const btnReview = document.querySelector('.btn-review');
-  const rcFlag = document.querySelector('.rc-flag span:last-child');
-  const confPct = document.querySelector('.conf-pct');
+  const btnApproveDemo = document.getElementById('btnApproveDemo') || document.querySelector('.btn-approve');
+  const btnRejectDemo = document.getElementById('btnRejectDemo') || document.querySelector('.btn-reject');
+  const btnReviewDemo = document.getElementById('btnReviewDemo') || document.querySelector('.btn-review');
+  const ircStatusText = document.getElementById('ircStatusText') || document.querySelector('.rc-flag span:last-child');
+  const ircReasoning = document.querySelector('.irc-reasoning');
 
-  if (btnApprove && rcFlag) {
-    btnApprove.addEventListener('click', () => {
-      rcFlag.textContent = 'Mapping Approved & Committed to Master';
-      rcFlag.style.color = 'var(--emerald-600)';
-      btnApprove.style.opacity = '0.5';
-      btnApprove.style.pointerEvents = 'none';
-      if (btnReject) btnReject.style.display = 'none';
-      if (btnReview) btnReview.style.display = 'none';
+  if (btnApproveDemo && ircStatusText) {
+    btnApproveDemo.addEventListener('click', () => {
+      ircStatusText.textContent = 'Mapping Approved & Committed to Master NUMM Catalog (Audit Ref: #VAL-2024-998)';
+      ircStatusText.style.color = '#10b981';
+      ircStatusText.style.fontWeight = '700';
+      btnApproveDemo.style.opacity = '0.6';
+      btnApproveDemo.style.pointerEvents = 'none';
+      btnApproveDemo.textContent = '✓ Approved';
+      if (btnRejectDemo) btnRejectDemo.style.display = 'none';
+      if (btnReviewDemo) btnReviewDemo.style.display = 'none';
     });
   }
 
-  if (btnReject && rcFlag) {
-    btnReject.addEventListener('click', () => {
-      rcFlag.textContent = 'Mapping Flagged for Engineering Clarification';
-      rcFlag.style.color = '#dc2626';
-      btnReject.style.opacity = '0.5';
-      btnReject.style.pointerEvents = 'none';
-      if (btnApprove) btnApprove.style.display = 'none';
+  if (btnRejectDemo && ircStatusText) {
+    btnRejectDemo.addEventListener('click', () => {
+      ircStatusText.textContent = 'Mapping Flagged for Engineering Clarification & Review';
+      ircStatusText.style.color = '#ef4444';
+      ircStatusText.style.fontWeight = '700';
+      btnRejectDemo.style.opacity = '0.6';
+      btnRejectDemo.style.pointerEvents = 'none';
+      btnRejectDemo.textContent = '✗ Flagged';
+      if (btnApproveDemo) btnApproveDemo.style.display = 'none';
     });
   }
 
-  // Initial Auto-Fit check
-  window.addEventListener('resize', () => {
-    // Only auto-adjust if close to 100% or on initial load
-    if (window.innerWidth < 1100 && currentZoom > 0.9) {
-      fitToScreen();
-    }
+  if (btnReviewDemo && ircReasoning) {
+    btnReviewDemo.addEventListener('click', () => {
+      const isExpanded = ircReasoning.getAttribute('data-expanded') === 'true';
+      if (isExpanded) {
+        ircReasoning.setAttribute('data-expanded', 'false');
+        ircReasoning.innerHTML = '<strong>AI Rationale:</strong> Exact match on metallurgical grade (TP304), dimensional equivalence (2.00" = 50.8mm &approx; DN50), and pressure schedule (SCH40).';
+        btnReviewDemo.innerHTML = '&#128065; Review Details';
+      } else {
+        ircReasoning.setAttribute('data-expanded', 'true');
+        ircReasoning.innerHTML = '<strong>AI Rationale &amp; Deep Attribute Trace:</strong><br>' +
+          '&bull; <strong>Dimension:</strong> 2 IN (Imperial) matches 50mm (Metric) and DN50 (Nominal Diameter) per ASME B36.19M.<br>' +
+          '&bull; <strong>Metallurgy:</strong> TP304 / Grade 304 Austenitic Stainless Steel confirmed across all three specifications.<br>' +
+          '&bull; <strong>Pressure Rating:</strong> Schedule 40 (SCH40) uniform across CPSE A, B &amp; C.<br>' +
+          '&bull; <strong>Confidence Vector:</strong> 0.963 cosine similarity (Threshold: 0.85). Recommended for immediate master convergence.';
+        btnReviewDemo.innerHTML = '&#128065; Collapse Details';
+      }
+    });
+  }
+
+  // Smooth scroll for nav items
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
   });
-
-  // Fit on load if on smaller screen
-  if (window.innerWidth < 1200) {
-    fitToScreen();
-  }
 });
