@@ -4,25 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const body = document.body;
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const themeBtnText = document.getElementById('themeBtnText');
-
-  // Theme Switcher
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      if (body.classList.contains('theme-dark')) {
-        body.classList.remove('theme-dark');
-        body.classList.add('theme-light');
-        if (themeBtnText) themeBtnText.textContent = 'Dark';
-      } else {
-        body.classList.remove('theme-light');
-        body.classList.add('theme-dark');
-        if (themeBtnText) themeBtnText.textContent = 'Light';
-      }
-    });
-  }
-
   // Interactive HITL Review Card Actions (Simulation for Evaluators)
   const btnApproveDemo = document.getElementById('btnApproveDemo') || document.querySelector('.btn-approve');
   const btnRejectDemo = document.getElementById('btnRejectDemo') || document.querySelector('.btn-reject');
@@ -74,7 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Smooth scroll for nav items
+  // Smooth scroll for nav items & active state highlight
+  const navIconLinks = document.querySelectorAll('.nav-icon-link');
+  
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -85,8 +68,35 @@ document.addEventListener('DOMContentLoaded', () => {
           targetElement.scrollIntoView({
             behavior: 'smooth'
           });
+          navIconLinks.forEach(link => link.classList.remove('active'));
+          const matchingLink = document.querySelector(`.nav-icon-link[href="${targetId}"]`);
+          if (matchingLink) matchingLink.classList.add('active');
         }
       }
     });
   });
+
+  // ScrollSpy to highlight corresponding icon as sections enter viewport
+  const sectionsToWatch = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window && sectionsToWatch.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentId = entry.target.getAttribute('id');
+          navIconLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${currentId}`) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    });
+
+    sectionsToWatch.forEach(sec => observer.observe(sec));
+  }
 });

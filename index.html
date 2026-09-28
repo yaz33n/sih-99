@@ -22,12 +22,50 @@
         </div>
       </div>
 
-      <nav class="nav-links">
-        <a href="#problem-section" class="nav-item">The Problem</a>
-        <a href="#intelligence-section" class="nav-item">The Intelligence</a>
-        <a href="#hitl-section" class="nav-item">HITL Governance</a>
-        <a href="#dashboard-section" class="nav-item">Dashboard &amp; Benefits</a>
-        <a href="#tech-section" class="nav-item">Tech Stack</a>
+      <nav class="nav-links" aria-label="Section navigation">
+        <a href="#problem-section" class="nav-icon-link" aria-label="The Problem" title="The Problem">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span class="nav-tooltip">The Problem</span>
+        </a>
+        <a href="#intelligence-section" class="nav-icon-link" aria-label="The Intelligence" title="The Intelligence">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span class="nav-tooltip">The Intelligence</span>
+        </a>
+        <a href="#hitl-section" class="nav-icon-link" aria-label="HITL Governance" title="HITL Governance">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <polyline points="16 11 18 13 22 9"/>
+          </svg>
+          <span class="nav-tooltip">HITL Governance</span>
+        </a>
+        <a href="#dashboard-section" class="nav-icon-link" aria-label="Dashboard &amp; Benefits" title="Dashboard &amp; Benefits">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="9" rx="1"/>
+            <rect x="14" y="3" width="7" height="5" rx="1"/>
+            <rect x="14" y="12" width="7" height="9" rx="1"/>
+            <rect x="3" y="16" width="7" height="5" rx="1"/>
+          </svg>
+          <span class="nav-tooltip">Dashboard &amp; Benefits</span>
+        </a>
+        <a href="#tech-section" class="nav-icon-link" aria-label="Tech Stack" title="Tech Stack">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+          <span class="nav-tooltip">Tech Stack</span>
+        </a>
       </nav>
 
       <div class="header-right">
@@ -39,18 +77,6 @@
             <span class="nav-cpcl-name">Chennai Petroleum Corporation Limited</span>
           </div>
         </div>
-
-        <!-- SIH PS 26099 Badge -->
-        <div class="nav-sih-pill">
-          <span class="sih-txt-bold">SMART INDIA HACKATHON</span>
-          <span class="sih-txt-ps">&bull; PS 26099</span>
-        </div>
-
-        <!-- Theme Toggle -->
-        <button id="themeToggleBtn" class="btn-theme-toggle" title="Switch Theme" aria-label="Switch Theme">
-          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <span id="themeBtnText">Dark</span>
-        </button>
       </div>
     </div>
   </header>
@@ -78,22 +104,6 @@
         <p class="hero-subtitle">
           <strong>National Unified Material Master (NUMM):</strong> An enterprise AI platform for discovering, standardizing, and harmonizing functionally equivalent materials across CPSEs without disrupting legacy SAP/ERP operations.
         </p>
-
-        <!-- Theme & Category Badges -->
-        <div class="hero-badges-row">
-          <span class="hero-badge badge-theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Theme: <strong>Smart Automation</strong>
-          </span>
-          <span class="hero-badge badge-org">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            CPCL &bull; Ministry of Petroleum &amp; Natural Gas
-          </span>
-          <span class="hero-badge badge-gov">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Human-in-the-Loop Governance
-          </span>
-        </div>
 
         <!-- Action CTAs -->
         <div class="hero-actions-row">
